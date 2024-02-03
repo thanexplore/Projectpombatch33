@@ -18,9 +18,9 @@ public class HeaderPage extends PageBase {
     private String lblWelcome = "//*[@id='welcome']";
     private String menuItem = "//*[@id='app']//descendant::*[text()='XXX']";
     private String menuClassName = "oxd-main-menu-item";
+    //private String menuProjectInfo=
 
     public HeaderPage(WebDriver driver) {
-
         super(driver);
         this.driver=driver;
     }

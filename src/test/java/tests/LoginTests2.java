@@ -2,7 +2,10 @@ package tests;
 
 
 import library.TestBase;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.HeaderPage;
 import pages.LoginPage;
 
 public class LoginTests2 extends TestBase {
@@ -20,6 +23,4 @@ public class LoginTests2 extends TestBase {
     }
 
 
-
-
-}
+    }
