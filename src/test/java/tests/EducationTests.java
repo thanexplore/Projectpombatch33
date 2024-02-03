@@ -19,7 +19,7 @@ public void addNewEducation() {
     headerPage.selectMenu(MenuOptions.EDUCATION);
     EducationPage educationPage = new EducationPage(driver);
     educationPage.saveNewEducation("Level1");
-   String uuid = UUID.randomUUID().toString();
+    String uuid = UUID.randomUUID().toString();
     educationPage.saveNewEducation("level1" + uuid);
 
 }

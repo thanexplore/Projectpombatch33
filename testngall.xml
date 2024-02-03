@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/Batchnew">
+        <classes>
+            <class name="tests.EducationTests">
+                <methods>
+                    <include name="addNewEducation"/>
+                </methods>
+            </class>
+            <class name="tests.LoginTests">
+                <methods>
+                    <include name="loginTestWithValidCredentials"/>
+                    <include name="loginTestWithInValidCredentials"/>
+                    <include name="loginTestWithSpaces"/>
+                </methods>
+            </class>
+            <class name="tests.LoginTests2">
+                <methods>
+                    <include name="loginTestWithValidCredentials"/>
+                    <include name="loginTestWithInValidCredentials"/>
+                </methods>
+            </class>
+            <class name="tests.ParameterizationTest">
+                <methods>
+                    <include name="sampleTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
