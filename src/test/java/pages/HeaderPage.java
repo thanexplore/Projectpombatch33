@@ -34,7 +34,9 @@ public class HeaderPage extends PageBase {
         log.debug("Window size height :{}, width :{}", dimension.height,dimension.width);
         int menuLevel=0;
         for (String item:menuItems){
-            menuLevel++;
+            if(menuItems.size() > 1) {
+                menuLevel++;
+            }
             By byMenu = By.xpath(menuItem.replace("XXX",item));
             Rectangle rectangle = getRect(byMenu);
             log.debug("Menu item coordinates- X1:{}, Y1:{}, X2 :{}, Y2 :{}", rectangle.getX(),rectangle.getY(),
@@ -43,6 +45,7 @@ public class HeaderPage extends PageBase {
             mouseHover(byMenu);
             sleep(MENU_SELECTION_DELAY);
             click(byMenu);
+            sleep(2000);
             if(menuLevel==1) {
                 int yOffset = rectangle.getY() + rectangle.height+10;
                 if(yOffset>dimension.height){

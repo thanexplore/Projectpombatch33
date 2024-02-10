@@ -1,7 +1,7 @@
 package pages;
 
 public class MenuOptions {
-    public static final String CANDIDATES = "Recruitment|Candidates";
+    public static final String CANDIDATES = "Recruitment";
     public static final String VACANCIES = "Recruitment|Vacancies";
     public static final String USERS = "Admin|User Management|Users";
     public static final String JOB_TITLES = "Admin|Job |Job Titles";
