@@ -9,10 +9,16 @@ import pages.LoginPage;
 public class LoginTests extends TestBase {
 
     @Test
-    public void loginTestWithValidCredentials()  {
+    public void loginTestWithValidCredentials() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("Admin", "admin123",true,null);
+    }
+
+    @Test
+    public void loginTestWithValidCredentialsUsingAssertion()  {
         LoginPage loginPage = new LoginPage(driver);
         boolean validCredentials = true;
-        boolean result = loginPage.login("Admin", "admin123",true,null);
+        boolean result = loginPage.loginAssertion("Admin", "admin123",true,null);
 
         if(validCredentials) {
             Assert.assertTrue(result);
