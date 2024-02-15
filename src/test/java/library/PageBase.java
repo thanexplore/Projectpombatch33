@@ -75,6 +75,13 @@ public abstract class PageBase {
         }
     }
 
+    protected void clear(WebElement we) {
+        we.click();
+        sleep(500);
+        we.sendKeys(Keys.chord(Keys.COMMAND,"a"));
+        we.sendKeys(Keys.chord(Keys.DELETE));
+    }
+
     protected void setText(By by, String text, int ... retries) {
         if((text != null && text.length() != 0)) {
             if(retries.length==0){
@@ -92,10 +99,8 @@ public abstract class PageBase {
                 WebElement we = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME))
                         .until(ExpectedConditions
                                 .presenceOfElementLocated(by));
-                we.click();
-                sleep(1000);
-                we.sendKeys(Keys.chord(Keys.COMMAND,"a"));
-                we.sendKeys(Keys.chord(Keys.DELETE));
+//                we.clear();
+                clear(we);
                 we.sendKeys(text);
                 String value = driver.findElement(by).getAttribute("value");
                 if(!value.equals(text)){

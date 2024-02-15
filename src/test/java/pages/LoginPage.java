@@ -32,7 +32,7 @@ public class LoginPage extends PageBase {
             Assert.assertEquals(getText(By.className(ErrorMsgClass)),expErrMsg, "Incorrect Error Message");
         }
     }
-    public boolean loginAssertion(String username, String password, boolean validCredentials, String expErrMsg)  {
+    public boolean loginAssertion(String username, String password)  {
         setText(By.name(usernameFieldName), username);
         setText(By.name(passwordFieldName),password);
         click(By.className(loginButtonClass));

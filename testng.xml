@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="/Users/damanaujla/Documents/Selenium Project/Projectpombatch33">
+        <classes>
+            <class name="tests.CandidateTests">
+                <methods>
+                    <include name="search"/>
+                    <include name="add"/>
+                    <include name="edit"/>
+                    <include name="delete"/>
+                </methods>
+            </class>
+            <class name="tests.EducationTests">
+                <methods>
+                    <include name="addNewEducation"/>
+                    <include name="editEducation"/>
+                    <include name="deleteEducation"/>
+                    <include name="deleteByCheckbox"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

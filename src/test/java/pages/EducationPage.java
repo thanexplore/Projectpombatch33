@@ -21,8 +21,10 @@ public class EducationPage extends PageBase {
     private final String educations = "//div[@class='oxd-table-body'] /div[@class='oxd-table-card']";
     private final String delButton = "//div[text() = \"%s\"]//following::div[2]//descendant::button[1]";
     private final String confirmDelButton = ".orangehrm-modal-footer button:nth-child(2)";
+    private final String deleteToast = "//*[text() = 'Successfully Deleted']";
     private final String editButton = "//div[text() = \"%s\"]//following::div[2]//descendant::button[2]";
-    private final String checkBoxBtn = "div[class='oxd-checkbox-wrapper'] span[class*='oxd-checkbox-input']";
+    private final String editToast = "//*[text() = 'Successfully Updated']";
+    private final String checkBoxBtn = "//*[text() = \"%s\"]//parent::div//parent::div//descendant::span";
     private final String deleteBtn = "//Button[text() = ' Delete Selected ']";
     @FindBy(xpath = educations)
     private List<WebElement> listEducations;
@@ -55,12 +57,18 @@ public class EducationPage extends PageBase {
         System.out.println("\n");
     }
 
-    public void deleteEducation(String educationName) {
+    public boolean deleteEducation(String educationName) {
+        boolean delete = false;
         click(By.xpath(delButton.replace("%s", educationName)));
         click(By.cssSelector(confirmDelButton));
+        if(isElementVisible(By.xpath(deleteToast))){
+            delete = true;
+        }
+        return delete;
     }
 
-    public void editEducation(String editName){
+    public boolean editEducation(String editName){
+        boolean edit = false;
         sleep(2000);
         click(By.xpath(editButton.replace("%s",editName)));
         String editText = editName + "123";
@@ -70,12 +78,21 @@ public class EducationPage extends PageBase {
         } else {
             click(By.xpath(idEduSaveButton));
         }
+        if(isElementVisible(By.xpath(editToast))) {
+            edit = true;
+        }
+        return edit;
     }
 
-    public void deleteByCheckbox(String delCheckbox){
+    public boolean deleteByCheckbox(String educationName){
+        boolean delete = false;
         sleep(2000);
-        click(By.cssSelector(checkBoxBtn));
+        click(By.xpath(checkBoxBtn.replace("%s",educationName)));
         click(By.xpath(deleteBtn));
         click(By.cssSelector(confirmDelButton));
+        if(isElementVisible(By.xpath(deleteToast))){
+            delete = true;
+        }
+        return delete;
     }
 }

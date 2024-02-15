@@ -18,7 +18,7 @@ public class LoginTests extends TestBase {
     public void loginTestWithValidCredentialsUsingAssertion()  {
         LoginPage loginPage = new LoginPage(driver);
         boolean validCredentials = true;
-        boolean result = loginPage.loginAssertion("Admin", "admin123",true,null);
+        boolean result = loginPage.loginAssertion("Admin", "admin123");
 
         if(validCredentials) {
             Assert.assertTrue(result);

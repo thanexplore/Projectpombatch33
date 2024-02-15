@@ -1,6 +1,7 @@
 package tests;
 
 import library.TestBase;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CandidatePage;
 import pages.HeaderPage;
@@ -16,7 +17,8 @@ public class CandidateTests extends TestBase {
         HeaderPage headerPage = new HeaderPage(driver);
         headerPage.selectMenu(MenuOptions.CANDIDATES);
         CandidatePage candidatePage = new CandidatePage(driver);
-        candidatePage.search();
+        boolean search = candidatePage.search("Associate IT Manager", "Odis Adalwin", "Job Offered", "b","Bhavya sree Dachu","2024-06-02");
+        Assert.assertTrue(search,"Search Failed");
     }
 
     @Test
@@ -26,7 +28,8 @@ public class CandidateTests extends TestBase {
         HeaderPage headerPage = new HeaderPage(driver);
         headerPage.selectMenu(MenuOptions.CANDIDATES);
         CandidatePage candidatePage = new CandidatePage(driver);
-        candidatePage.add();
+        boolean added = candidatePage.add("Deniel","Jackson","Java Developer","jackson@icloud.com","2261234765","Interview for Java Developer","o","Odis  Adalwin","2024-07-02");
+        Assert.assertTrue(added, "Candidate has not been successfully added");
     }
 
     @Test(priority = 2)
@@ -36,7 +39,8 @@ public class CandidateTests extends TestBase {
         HeaderPage headerPage = new HeaderPage(driver);
         headerPage.selectMenu(MenuOptions.CANDIDATES);
         CandidatePage candidatePage = new CandidatePage(driver);
-        candidatePage.edit();
+        boolean edit = candidatePage.edit();
+        Assert.assertTrue(edit,"Candidate has not been successfully edited");
     }
 
     @Test(priority = 3)
@@ -46,6 +50,7 @@ public class CandidateTests extends TestBase {
         HeaderPage headerPage = new HeaderPage(driver);
         headerPage.selectMenu(MenuOptions.CANDIDATES);
         CandidatePage candidatePage = new CandidatePage(driver);
-        candidatePage.delete();
+        boolean deleted = candidatePage.delete();
+        Assert.assertTrue(deleted,"Candidate has not been deleted");
     }
 }

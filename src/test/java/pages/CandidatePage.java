@@ -4,7 +4,6 @@ import library.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
 public class CandidatePage extends PageBase {
     WebDriver driver;
@@ -31,79 +30,90 @@ public class CandidatePage extends PageBase {
     private final String editClick = "span[class = 'oxd-switch-input oxd-switch-input--active --label-left']";
     private final String deleteButton = "//div[text() = '%s']//following::div[9]//descendant::button[2]";
     private final String confirmDelete = "//button[text() = ' Yes, Delete ']";
+    private final String successToast = "//*[text() = 'Successfully Saved']";
+    private final String searchResult = ".orangehrm-horizontal-padding";
+    private final String editToast = "//*[text() ='Successfully Updated']";
+    private final String deleteToast = "//*[text() ='It has been removed successfully']";
     public CandidatePage(WebDriver driver) {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    public void search(){
+    public boolean search(String vacancy, String hiringManager, String status, String keyword, String selection, String date){
+        boolean search = false;
         clickSelectButton(By.xpath(dropDown.replace("%s","Vacancy")), 1);
-        selectOptionButton("Vacancy", "Associate IT Manager",1);
+        selectOptionButton("Vacancy", vacancy,1);
         clickSelectButton(By.xpath(dropDown.replace("%s","Hiring Manager")), 1);
-        selectOptionButton("Hiring Manager", "Odis Adalwin",1);
+        selectOptionButton("Hiring Manager", hiringManager,1);
         clickSelectButton(By.xpath(dropDown.replace("%s","Status")), 1);
-        selectOptionButton("Status", "Job Offered",1);
-        setText(By.xpath(textField.replace("%s","Candidate Name")),"b",1);
-        clickSelectButton(By.xpath(nameTextField.replace("%s","Bhavya sree Dachu")),1);
-        setText(By.xpath(textField.replace("%s", "Date of Application")),"2024-06-02");
-        setText(By.xpath("//*[@placeholder=\"To\"]"),"2024-10-02");
-        clickSelectButton(By.xpath(dropDown.replace("%s","Method of Application")), 1);
-        selectOptionButton("Method of Application", "Online", 1);
+        selectOptionButton("Status", status,1);
+        setText(By.xpath(textField.replace("%s","Candidate Name")),keyword,1);
+        clickSelectButton(By.xpath(nameTextField.replace("%s",selection)),1);
+        setText(By.xpath(textField.replace("%s", "Date of Application")),date);
         click(By.xpath(searchButton));
+        String resultContainer = getText(By.cssSelector(searchResult));
+        if(resultContainer.contains("Record Found") || resultContainer.contains("Records Found")) {
+            search = true;
+        }
         sleep(2000);
         click(By.xpath(resetButton));
-        Assert.assertTrue(true);
+        return search;
     }
 
-    public void add(){
+    public boolean add(String fName, String lName, String vacancy,String Email, String contact, String title, String keyword, String selection, String date){
+        boolean added = false;
         click(By.xpath(addButton));
-        setText(By.name(firstFieldName),"Deniel");
-        setText(By.name(lastFieldname),"Jackson");
+        setText(By.name(firstFieldName),fName);
+        setText(By.name(lastFieldname),lName);
         clickSelectButton(By.xpath(addDropDown.replace("%s","Vacancy")), 1);
-        selectOptionButton("Vacancy", "Java Developer", 1);
-        setText(By.xpath(addTextField.replace("%s","Email")),"jackson@icloud.com", 1);
-        setText(By.xpath(addTextField.replace("%s","Contact Number")),"2261234765", 1);
-        sleep(2000);
+        selectOptionButton("Vacancy", vacancy, 1);
+        setText(By.xpath(addTextField.replace("%s","Email")),Email, 1);
+        setText(By.xpath(addTextField.replace("%s","Contact Number")),contact, 1);
         fileUpload(By.cssSelector(browseFile),"/Users/damanaujla/Desktop/dummy.pdf",1);
-        sleep(2000);
         click(By.cssSelector(checkBoxButton));
         click(By.xpath(saveButton));
-        sleep(2000);
+        if(isElementVisible(By.xpath(successToast))) {
+            added = true;
+        }
         click(By.cssSelector(shortlistButton));
         setText(By.xpath(textBox),"Candidate is shortlisted");
         click(By.xpath(saveButton));
-        sleep(2000);
         click(By.xpath(scheduleButton));
-        setText(By.xpath(interviewTextBox.replace("%s","Interview Title")),"Interview for Java Developer",1);
-        setText(By.xpath(textField.replace("%s","Interviewer")),"o",1);
-        clickSelectButton(By.xpath(nameTextField.replace("%s","Odis  Adalwin")),1);
-        setText(By.xpath(textField.replace("%s", "Date")),"2024-07-02");
-        sleep(2000);
+        setText(By.xpath(interviewTextBox.replace("%s","Interview Title")),title,1);
+        setText(By.xpath(textField.replace("%s","Interviewer")),keyword,1);
+        clickSelectButton(By.xpath(nameTextField.replace("%s",selection)),1);
+        setText(By.xpath(textField.replace("%s", "Date")),date);
         click(By.xpath(saveButton));
         click(By.xpath(interviewerFailedButton));
         setText(By.xpath(textBox),"Interview did not pass");
-        sleep(2000);
         click(By.xpath(saveButton));
         click(By.xpath(rejectButton));
         setText(By.xpath(textBox),"Candidate rejected");
         click(By.xpath(saveButton));
-        Assert.assertTrue(true);
+        return added;
     }
 
-    public void edit(){
+    public boolean edit(){
+        boolean edit = false;
         click(By.xpath(editActionButton.replace("%s","Senior QA Lead")));
         click(By.cssSelector(editClick));
         sleep(2000);
         String editText = "xiang@icloud.com";
         setText(By.xpath(addTextField.replace("%s","Email")),editText,1);
-        sleep(2000);
         click(By.xpath(saveButton));
-        Assert.assertTrue(true);
+        if(isElementVisible(By.xpath(editToast))) {
+            edit = true;
+        }
+        return edit;
     }
 
-    public void delete(){
+    public boolean delete(){
+        boolean deleted = false;
         click(By.xpath(deleteButton.replace("%s","Java Developer")));
         click(By.xpath(confirmDelete));
-        Assert.assertTrue(true);
+        if(isElementVisible(By.xpath(deleteToast))) {
+            deleted = true;
+        }
+        return deleted;
     }
 }
