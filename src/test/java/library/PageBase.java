@@ -20,8 +20,6 @@ public abstract class PageBase {
     private static final int REATTEMPT_DELAY = 500;
     protected static final int MENU_SELECTION_DELAY = 1000;
 
-
-
     public PageBase(WebDriver driver)
     {
         this.driver = driver;
@@ -77,6 +75,13 @@ public abstract class PageBase {
         }
     }
 
+    protected void clear(WebElement we) {
+        we.click();
+        sleep(500);
+        we.sendKeys(Keys.chord(Keys.COMMAND,"a"));
+        we.sendKeys(Keys.chord(Keys.DELETE));
+    }
+
     protected void setText(By by, String text, int ... retries) {
         if((text != null && text.length() != 0)) {
             if(retries.length==0){
@@ -94,7 +99,8 @@ public abstract class PageBase {
                 WebElement we = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME))
                         .until(ExpectedConditions
                                 .presenceOfElementLocated(by));
-                we.clear();
+//                we.clear();
+                clear(we);
                 we.sendKeys(text);
                 String value = driver.findElement(by).getAttribute("value");
                 if(!value.equals(text)){
@@ -294,7 +300,7 @@ public abstract class PageBase {
 
     //Ignore this
     protected void selectOptionButton(String label,String option, int ... retries){
-        String selectButton = "//*[text()='XXX']//following::label[text()='YYY'][1]//parent::span"
+        String selectButton = "//*[text()='XXX']//following::*[text()='YYY'][1]//parent::span"
                 .replace("XXX",label)
                 .replace("YYY", option);
         By by = By.xpath(selectButton);

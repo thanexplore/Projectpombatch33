@@ -19,19 +19,26 @@ public class LoginPage extends PageBase {
         this.driver=driver;
     }
 
-    public void login(String username, String password, boolean validCredentials, String expErrMsg)  {
+    public void login(String username, String password, boolean validCredentials, String expErrMsg){
         setText(By.name(usernameFieldName), username);
         setText(By.name(passwordFieldName),password);
         click(By.className(loginButtonClass));
-
         HeaderPage headerPage = new HeaderPage(driver);
-
-        if(validCredentials){
+        if(validCredentials) {
             Assert.assertTrue(headerPage.isMenuVisible());
-        }else {
+        } else {
             Assert.assertFalse(headerPage.isMenuVisible());
+
             Assert.assertEquals(getText(By.className(ErrorMsgClass)),expErrMsg, "Incorrect Error Message");
         }
+    }
+    public boolean loginAssertion(String username, String password)  {
+        setText(By.name(usernameFieldName), username);
+        setText(By.name(passwordFieldName),password);
+        click(By.className(loginButtonClass));
+        HeaderPage headerPage = new HeaderPage(driver);
+
+        return headerPage.isMenuVisible();
     }
 
 }
