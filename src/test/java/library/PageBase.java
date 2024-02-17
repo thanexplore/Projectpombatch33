@@ -99,8 +99,8 @@ public abstract class PageBase {
                 WebElement we = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME))
                         .until(ExpectedConditions
                                 .presenceOfElementLocated(by));
-//                we.clear();
-                clear(we);
+                we.clear();
+               // clear(we);
                 we.sendKeys(text);
                 String value = driver.findElement(by).getAttribute("value");
                 if(!value.equals(text)){
